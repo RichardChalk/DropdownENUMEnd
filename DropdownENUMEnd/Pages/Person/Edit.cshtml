@@ -40,6 +40,18 @@
                 </select>
                 <span asp-validation-for="CountryId" class="field-validation-error"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="GenderUser">Gender</label>
+                <select class="form-control" asp-for="GenderUser" asp-items="@Model.Genders">
+                </select>
+                <span asp-validation-for="GenderUser"
+                      class="field-validation-error"></span>
+            </div>
+
+
+
+
             <div class="form-group">
                 <label asp-for="Salary">Lön</label>
                 <input class="form-control" asp-for="Salary">

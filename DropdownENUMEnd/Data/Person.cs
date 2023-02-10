@@ -1,4 +1,5 @@
 ﻿using DropdownEnd.Data;
+using DropdownENUMEnd.Data;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
 
@@ -30,4 +31,6 @@ public class Person
     public string City { get; set; }
     [StringLength(150)]
     public string Email { get; set; }
+
+    public Gender GenderUser { get; set; }
 }

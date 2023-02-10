@@ -1,5 +1,7 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using BankAccountTransactionsEnd.Data;
+using DropdownENUMEnd.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -51,9 +53,26 @@ namespace SkysFormsDemo.Pages.Person
         public int CountryId { get; set; }
         public List<SelectListItem> Countries { get; set; }
 
+        [Range(1, 99, ErrorMessage = "Please choose a valid gender!")]
+        public Gender GenderUser { get; set; }
+        public List<SelectListItem> Genders { get; set; }
+
+
+
         public void OnGet()
         {
             FillCountryList();
+            FillGenderList();
+        }
+
+        private void FillGenderList()
+        {
+            Genders = Enum.GetValues<Gender>()
+                .Select(g => new SelectListItem
+                {
+                    Value = g.ToString(),
+                    Text= g.ToString(),
+        }).ToList();
         }
 
         private void FillCountryList()
@@ -86,6 +105,7 @@ namespace SkysFormsDemo.Pages.Person
                     Name = Name,
                     PostalCode = PostalCode,
                     Country = _personService.GetCountries().First(c=>c.Id == CountryId),
+                    GenderUser = GenderUser
                 };
 
                 _personService.SaveNew(person);
@@ -93,6 +113,7 @@ namespace SkysFormsDemo.Pages.Person
             }
 
             FillCountryList();
+            FillGenderList();
             return Page();
         }
     }

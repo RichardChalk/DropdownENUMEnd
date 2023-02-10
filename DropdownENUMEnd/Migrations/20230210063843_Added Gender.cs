@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace DropdownEnd.Migrations
+namespace DropdownENUMEnd.Migrations
 {
-    public partial class Initialv2 : Migration
+    public partial class AddedGender : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,7 +52,8 @@ namespace DropdownEnd.Migrations
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Age = table.Column<int>(type: "int", nullable: false),
                     City = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
+                    Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    GenderUser = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -8,7 +8,7 @@ using SkysFormsDemo.Data;
 
 #nullable disable
 
-namespace DropdownEnd.Migrations
+namespace DropdownENUMEnd.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -89,6 +89,9 @@ namespace DropdownEnd.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("GenderUser")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");

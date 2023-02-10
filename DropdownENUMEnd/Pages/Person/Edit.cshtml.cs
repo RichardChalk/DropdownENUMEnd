@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using DropdownEnd.Data;
+using DropdownENUMEnd.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -33,6 +34,10 @@ namespace SkysFormsDemo.Pages.Person
         public int CountryId { get; set; }
         public List<SelectListItem> Countries { get; set; }
 
+        [Range(1, 99, ErrorMessage = "Please choose a valid gender!")]
+        public Gender GenderUser { get; set; }
+        public List<SelectListItem> Genders { get; set; }
+
         public void OnGet(int personId)
         {
             var personFromView = _personService.GetDbContext().Person
@@ -47,8 +52,21 @@ namespace SkysFormsDemo.Pages.Person
             Salary = personFromView.Salary;
             StreetAddress = personFromView.StreetAddress;
             CountryId = personFromView.Country.Id;
+            GenderUser = personFromView.GenderUser;
             FillCountryList();
+            FillGenderList();
         }
+
+        private void FillGenderList()
+        {
+            Genders = Enum.GetValues<Gender>()
+                .Select(g => new SelectListItem
+                {
+                    Value = g.ToString(),
+                    Text = g.ToString()
+                }).ToList();
+        }
+
 
         private void FillCountryList()
         {
@@ -70,13 +88,15 @@ namespace SkysFormsDemo.Pages.Person
                 personDb.Country = _personService.GetCountries().First(c => c.Id == CountryId);
                 personDb.Email = Email;
                 personDb.PostalCode = PostalCode;
-                Salary = personDb.Salary;
-                StreetAddress = personDb.StreetAddress;
+                personDb.Salary = Salary;
+                personDb.StreetAddress = StreetAddress;
+                personDb.GenderUser = GenderUser;
 
                 _personService.Update(personDb);
                 return RedirectToPage("Index");
             }
             FillCountryList();
+            FillGenderList();
             return Page();
         }
     }
